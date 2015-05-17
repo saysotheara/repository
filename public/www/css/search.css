@@ -1,0 +1,30 @@
+/* This is a CSS file */
+
+.session-container {
+    padding: 8px 16px 8px 8px;
+    margin: 0 0px;
+    border-bottom: 1px solid #ddd;
+    background-image: url(../images/arrow.svg);
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 40px 40px;
+    font-weight: 200;
+}
+
+.session-title {
+    font-size: 20px;
+    font-weight: 200;
+    margin: 8px 34px 8px 0;
+}
+
+.session-author {
+    font-size: 18px;
+    color: #1D77EF;
+}
+
+.session-location, .session-time {
+    display: inline-block;
+    margin-right: 10px;
+    color: #999;
+    font-weight: 400;
+}

@@ -1,0 +1,93 @@
+
+<ons-page style="background-color: white" ng-controller="MenuController">
+
+    <div style="text-align: center; color: #007AFF; margin: 20px 10px 10px 10px;">
+        <img src="images/online9.png" alt="" style="width: 180px;" />
+    </div>
+    
+    <ons-list>
+
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            ng-click='onOnlineMarketClick()'>
+            <i class="fa fa-home fa-lg decor-color"></i>
+            &nbsp; Online Market
+        </ons-list-item>
+
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            onclick="app.slidingMenu.setMainPage('product.html', {closeMenu: true})">
+            <i class="fa fa-tags fa-sg decor-color"></i>
+            &nbsp; Categories
+        </ons-list-item>
+
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            ng-click='onFavoriteClick()'>
+            <i class="fa fa-star fa-sg decor-color"></i>
+            &nbsp; Favorites
+        </ons-list-item>
+<!--
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            ng-click='onHistoryClick()'>
+            <i class="fa fa-history fa-sg decor-color"></i>
+            &nbsp; View History
+        </ons-list-item>
+-->
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            ng-click='onPostingClick()'>
+            <i class="fa fa-send-o fa-sg decor-color"></i>
+            &nbsp; Posting Ads
+        </ons-list-item>
+<!--
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            ng-click='onStoreClick()'>
+            <i class="fa fa-shopping-cart fa-sg decor-color"></i>
+            &nbsp; Stores
+        </ons-list-item>
+-->
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            ng-click='onProfileClick()'>
+            <i class="fa fa-user fa-sg decor-color"></i>
+            &nbsp; My Profile
+        </ons-list-item>
+<!--
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            onclick="app.slidingMenu.setMainPage('setting.html', {closeMenu: true})">
+            <i class="fa fa-gear fa-sg decor-color"></i>
+            &nbsp; Settings
+        </ons-list-item>
+-->
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            onclick="app.slidingMenu.setMainPage('about.html', {closeMenu: true})">
+            <i class="fa fa-info-circle fa-sg decor-color"></i>
+            &nbsp; About Us
+        </ons-list-item>
+        
+        <ons-list-item
+            modifier="tappable" class="list__item__line-height"
+            onclick="app.slidingMenu.setMainPage('classify.html', {closeMenu: true})">
+            <i class="fa fa-crosshairs fa-sg decor-color"></i>
+            &nbsp; More Classify
+        </ons-list-item>
+
+    </ons-list>
+
+    <div ng-if="isLoggined">
+        <ons-list modifier="inset" style="margin-top:10px;">
+            <ons-list-item>
+                You are loggined as:
+            </ons-list-item>
+            <ons-list-item>
+               {{ user.user_id }}
+            </ons-list-item>
+        </ons-list>
+    </div>
+
+</ons-page>

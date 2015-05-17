@@ -1,0 +1,66 @@
+/* This is a CSS file */
+
+.question {
+    color: #007AFF;
+    font-size: 17px;
+    font-weight: 400;
+    opacity: 0.9;
+    line-height: 1.8;
+    text-align: left;
+    padding: 7px 0 7px 0;
+}
+
+.answer {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.9;
+    line-height: 1.8;
+    text-align: left;
+    padding: 5px 0 10px 0;
+}
+
+.about-text {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.9;
+    line-height: 1.8;
+    padding: 10px;
+    text-align: left;
+}
+
+.icon-me {
+    padding-right: 5px;
+}
+
+.to-wrapper {
+  line-height: 1;
+  height: 90px;
+  padding: 10px;
+}
+
+.to-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+
+.to-name {
+  font-weight: 500;
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+.to-email {
+  margin-top: 10px;
+  font-size: 14px;
+  opacity: 0.4;
+}
+
+.text-input {
+  margin-top: 4px;
+}
+
+.textarea {
+  margin-top: 4px;
+}

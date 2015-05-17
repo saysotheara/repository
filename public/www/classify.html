@@ -1,0 +1,23 @@
+
+<ons-page ng-controller="ClassifyController">
+
+    <ons-toolbar>
+        <div class="left">
+            <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="decor-color"></ons-icon></ons-toolbar-button>
+        </div>
+        <div class="center">Classify Ads</div>
+    </ons-toolbar>
+
+    <div class="wrapper">
+        <div class="container">
+        	<ul class="grid-na rig columns-3">
+				<li ng-repeat="item in classifies">
+					<img src="images/pri_{{item.id}}.jpg" /><span class="classify-item">{{item.name}}</span>
+				</li>
+			</ul>
+	    </div>
+	    <!--/.container-->
+    </div>
+    <!--/.wrapper-->
+
+</ons-page>

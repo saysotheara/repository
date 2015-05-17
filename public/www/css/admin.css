@@ -1,0 +1,40 @@
+/* This is a CSS file */
+
+/* Main item in the list */
+.admin_user-item {
+  padding: 10px;
+  line-height: 1;
+  height: 110px;
+  overflow: hidden;
+}
+
+.admin_user-item-thum {
+  background-color: #ccc;
+  width: 90px;
+  height: 90px;
+  border-radius: 4px;
+}
+
+.admin_user-item-name {
+  font-size: 15px;
+  font-weight: 500;
+  padding-top: -5px;
+}
+
+.admin-user-item-element {
+  font-size: 14px;
+  opacity: 0.7;
+  padding: 8.2px 30px 0 0;
+  overflow: hidden;
+}
+
+.admin-user-item-role {
+    font-size: 15px;
+}
+
+.admin-user-item-active {
+    font-size: 14px;
+    opacity: 0.7;
+    float: right;
+    margin-top: -17px;
+}

@@ -1,0 +1,290 @@
+
+<ons-navigator title="OnlineMarket" var="app.navi" page="main.html"></ons-navigator>
+    
+<ons-modal var="modal">
+    <i class="fa fa-spinner fa-spin fa-pulse" style="font-size: 28px;"></i>
+    <br><br>
+    Please wait ...
+</ons-modal>
+
+<ons-template id="main.html">
+    <ons-page id="main-page" ng-controller="MainController">
+        <ons-pull-hook ng-action="refresh($done)" var="loader">
+            <span ng-switch="loader.getCurrentState()">
+                <span ng-switch-when="initial"><ons-icon size="25px" icon="ion-arrow-down-a"></ons-icon> Pull down to refresh</span>
+                <span ng-switch-when="preaction"><ons-icon size="25px" icon="ion-arrow-up-a"></ons-icon> Release to refresh</span>
+                <span ng-switch-when="action"><i class="fa fa-spinner fa-spin fa-pulse" style="font-size: 20px;"></i> Loading data...</span>
+            </span>
+        </ons-pull-hook>
+        <ons-toolbar>
+            <div class="left">
+                <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="decor-color"></ons-icon></ons-toolbar-button>
+            </div>
+            <div class="center">{{pageTitle}}</div>
+            <div class="right">
+                <ons-toolbar-button ng-click="app.navi.pushPage('search.html', { animation: 'lift' })"><ons-icon icon="search" class="decor-color"></ons-icon></ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+<!--         <ons-list infinite-scroll="loadNext()">
+ -->    
+        <ons-list>
+            <ons-list-item 
+                modifier="tappable" class="item" ng-repeat="item in items"
+                ng-click="onItemSelect(item)">
+                <ons-row>
+                    <ons-col width="98px">
+                        <img ng-src="{{thumbPath}}{{item.photo}}" class="item-thum"></img>
+                    </ons-col>
+                    <ons-col>
+                        <div class="item-title">
+                            {{ item.post | cut : true : 200 : ' ...' }}
+                        </div>
+                        <div ng-show="item.desc==''"><p><span style='opacity: 0.7;'><i class="fa fa-spinner fa-spin fa-pulse"></i> Loading item...</p></span></div>
+                        <div class="item-desc">
+                            {{ item.description | cut : true : 200 : ' ...' }}
+                        </div>
+                        <div class="item-more">
+                            <ons-icon icon="fa-phone" class="item-icon decor-color"></ons-icon> 
+                            <span class="decor-color">{{ item.phone | tel }}</span>
+                            <span style="color: black;">&nbsp; | &nbsp;</span> 
+                            <ons-icon icon="fa-money" class="item-icon alert-color"></ons-icon> 
+                            <span class="alert-color">{{ item.price | currency}}</span>
+                        </div>
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+        </ons-list>
+    </ons-page>
+</ons-template>
+
+<ons-template id="detail.html">
+    <ons-page id="detail-page" ng-controller="DetailController">
+        <ons-toolbar>
+            <div class="left"><ons-back-button>Back</ons-back-button></div>
+            <div class="center">More information</div>
+            <div class="right">
+                <div ng-if="isFavorited">
+                    <ons-toolbar-button ng-click="onFavoriteRemove();"><ons-icon icon="star" class="decor-color"></ons-icon></ons-toolbar-button>
+                </div>
+                <div ng-if="isFavorited===false">
+                    <ons-toolbar-button ng-click="onFavoriteAdd();"><ons-icon icon="star-o" class="decor-color"></ons-icon></ons-toolbar-button>
+                </div>
+            </div>
+        </ons-toolbar>
+        <ons-list modifier="inset" style="margin-top: 10px;">
+            <ons-list-item>
+                <div class="detail-title">{{item.post}}</div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="detail-info">
+                    <ons-icon icon="fa" style="line-height: 1.8"><p style="white-space: pre-line;">{{item.description}}</p></ons-icon>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="detail-info">
+                    <ons-icon icon="fa-user" class="detail-user"> Seller: {{item.user_id}}</ons-icon>
+                    <ons-icon icon="fa-money" class="detail-price"> {{item.price | currency}}</ons-icon>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="detail-info">
+                    <ons-icon icon="fa-tag" class="detail-tag"> Appeared in: {{item.tag}}</ons-icon>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="detail-info">
+                    <ons-icon icon="fa-map-marker" class="detail-location"> Available in: {{item.location}}</ons-icon>                    
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="detail-info">
+                    <ons-icon icon="fa-calendar" class="detail-location"> Available since: {{ item.date | date : "MMM-dd-yyyy" }}</ons-icon>                    
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="detail-info">
+                    <ons-icon icon="fa-phone" class="detail-location"> 
+                        Phone number: <a href="tel:{{item.phone}}">{{item.phone | tel}}</a>
+                    </ons-icon>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="detail-info">
+                    <ons-icon icon="fa-envelope-square" class="detail-location"> 
+                        Email: <a href="mailto:{{item.email}}?subject=Post">{{item.email}}</a>
+                    </ons-icon>
+                </div>
+            </ons-list-item>
+        </ons-list>
+<!--                        
+        <ons-list style="border-top: none; margin-top: 10px;">
+            <ons-list-item style="line-height: 1; padding: 0;">
+                <ons-row class="action">
+    
+                <ons-col class="action-col">
+                  <div class="action-icon"><ons-icon icon="star-o"></ons-icon></div>
+                  <div class="action-label">Rate</div>
+                </ons-col>
+    
+                <ons-col class="action-col" ng-click="onFavoriteAdd()">
+                  <div class="action-icon"><ons-icon icon="ion-bookmark"></ons-icon></div>
+                  <div class="action-label">Favorite</div>
+                </ons-col>
+    
+                <ons-col class="action-col">
+                  <div class="action-icon"><ons-icon icon="ion-share"></ons-icon></div>
+                  <div class="action-label">Share</div>
+                </ons-col>
+    
+                <ons-col class="action-col">
+                  <div class="action-icon"><ons-icon icon="ion-compose"></ons-icon></div>
+                  <div class="action-label">Check In</div>
+                </ons-col>
+    
+              </ons-row>
+            </ons-list-item>        
+        </ons-list>
+-->    
+<!--         <ons-list style="margin-top: 10px;">    
+            <ons-list-item 
+                modifier="tappable" class="detail_list__item__line-height">
+                <div class="prop-desc">
+                    <ons-icon icon="fa-phone"></ons-icon>
+                    Make a call: <a href="tel:{{item.phone}}">{{ item.phone | tel }}</a>
+                </div>
+            </ons-list-item>
+            <ons-list-item 
+                modifier="tappable" class="detail_list__item__line-height">
+                <div class="prop-desc">
+                    <ons-icon icon="fa-envelope-o"></ons-icon>
+                    Contact: <a href="mailto:{{item.email}}?subject=Post">{{item.email}}</a>
+                </div>
+            </ons-list-item>    
+            <ons-list-item 
+                modifier="chevron" class="detail_list__item__line-height"
+                onclick="app.navi.pushPage('photo.html', { animation : 'slide' } )">
+                <div class="prop-desc">
+                    <ons-icon icon="fa-book"></ons-icon>
+                    View more photos
+                </div>
+            </ons-list-item>
+        </ons-list> -->
+        <div class="container slider">
+            <img ng-repeat="file in files" class="slide" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{srcPath}}{{file.photo}}" />
+            <a class="arrow prev" href="#" ng-click="showPrev()"></a>
+            <a class="arrow next" href="#" ng-click="showNext()"></a>
+        </div>
+    </ons-page>
+</ons-template>
+
+<ons-template id="search.html">
+    <ons-page id="search-page" ng-controller="SearchController">
+        <ons-toolbar>
+            <div class="right">
+                <ons-toolbar-button ng-click="app.navi.popPage();"><span class="decor-color">Cancel</span></ons-toolbar-button>
+            </div>
+            <div class="center">Looking for something?</div>
+        </ons-toolbar>
+        <div style="text-align: center;">
+            <section style="padding: 8px">
+                <input type="search" class="search-input" ng-model="searchText" placeholder="I'm looking for..." style="display: block; width: 100%; height: 40px; background-color: #FFFFFF;">
+            </section>
+        </div>
+        <ons-list>
+            <ons-list-item 
+                modifier="tappable" class="item" ng-show="items.length==0">
+                <div style="text-align: center; width: 100%; margin-top: 50px;">
+                    no results found...
+                </div>
+            </ons-list-item>
+            <ons-list-item 
+                modifier="tappable" class="item" ng-repeat="item in items"
+                ng-click="onItemSelect(item)">
+                <ons-row>
+                    <ons-col width="98px">
+                        <img ng-src="{{thumbPath}}{{item.photo}}" class="item-thum"></img>
+                    </ons-col>
+                    <ons-col>
+                        <div class="item-title">
+                            {{ item.post | cut : true : 200 : ' ...' }}
+                        </div>
+                        <div ng-show="item.desc==''"><p><span style='opacity: 0.7;'><i class="fa fa-spinner fa-spin fa-pulse"></i> Loading item...</p></span></div>
+                        <div class="item-desc">
+                            {{ item.description | cut : true : 200 : ' ...' }}
+                        </div>
+                        <div class="item-more">
+                            <ons-icon icon="fa-user" class="item-icon decor-color"></ons-icon> {{ item.user_id }} <span style="color: black;"> | </span> 
+                            <ons-icon icon="fa-money" class="item-icon alert-color"></ons-icon> <span class="alert-color">{{ item.price | currency}}</span>
+                        </div>
+                    </ons-col>
+                </ons-row>
+            </ons-list-item>
+        </ons-list>
+    </ons-page>
+</ons-template>
+
+<ons-template id="product.html">
+<ons-page id="product-page" ng-controller="ProductController">
+    <ons-toolbar>
+        <div class="left">
+            <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="decor-color"></ons-icon></ons-toolbar-button>
+        </div>
+        <div class="center">Products</div>
+    </ons-toolbar>
+
+    <div class="wrapper">
+        <div class="container">
+            <ul class="grid-na rig columns-3">
+        		<li ng-repeat="tag in tags" ng-click="onTagClicked(tag.tag);">
+    				<img src="images/pri_{{tag.id}}.jpg" /><span class="classify-item">{{tag.tag}}</span>
+    			</li>
+    		</ul>
+        </div>
+    </div>
+</ons-page>    
+</ons-template>
+
+<ons-template id="photo.html">
+    <ons-page id="photo-page" ng-controller="DetailPhotoController">
+        <ons-toolbar>
+            <div class="left"><ons-back-button>Back</ons-back-button></div>
+            <div class="center">All photos</div>
+            <div class="right">
+                <ons-toolbar-button class="decor-color">{{files.length}}</ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+        <ons-carousel swipeable overscrollable auto-scroll auto-refresh fullscreen var="carousel">
+            <ons-carousel-item ng-repeat="file in files">
+                <img ng-src="{{srcPath}}{{file.photo}}" style="width: 100%; height: auto">
+            </ons-carousel-item>
+            <ons-carousel-cover><div class="cover-label"><span class="decor-color">Swipe left or right</span></div></ons-carousel-cover>
+        </ons-carousel>
+    </ons-page>
+</ons-template>
+
+<ons-template id="comments.html">
+    <ons-page id="comments-page">
+        <ons-toolbar>
+            <div class="left"><ons-back-button>Back</ons-back-button></div>
+            <div class="center">All Comments</div>
+        </ons-toolbar>            
+        <ons-carousel swipeable overscrollable auto-scroll fullscreen var="carousel">
+            <ons-carousel-item style="background-color: gray;">
+                <div class="item-label">GRAY</div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #085078;">
+                <div class="item-label">BLUE</div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #373B44;">
+                <div class="item-label">DARK</div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #D38312;">
+                <div class="item-label">ORANGE</div>
+            </ons-carousel-item>
+            <ons-carousel-cover><div class="cover-label">Swipe left or right</div></ons-carousel-cover>
+        </ons-carousel>
+    </ons-page>
+</ons-template>
+
+
+
