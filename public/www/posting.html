@@ -9,13 +9,13 @@
 
 <ons-template id="posting_main.html">
     <ons-page ng-controller="PostingController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left">
-                <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="decor-color"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="icon-color"></ons-icon></ons-toolbar-button>
             </div>
             <div class="center">New Post</div>
             <div class="right">
-                <ons-toolbar-button ng-click="onPostSubmit()"><span class="decor-color">Post</span></ons-toolbar-button>
+                <ons-toolbar-button ng-click="onPostSubmit()"><span class="icon-color">Post</span></ons-toolbar-button>
             </div>
         </ons-toolbar>
         <div style="text-align: center; padding: 10px">

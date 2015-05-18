@@ -9,13 +9,13 @@
 
 <ons-template id="profile_main.html">
     <ons-page id="profile_main-page" ng-controller="ProfileController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left">
-                <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="decor-color"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="icon-color"></ons-icon></ons-toolbar-button>
             </div>
             <div class="center">Profile</div>
             <div class="right">
-                <ons-toolbar-button ng-click="onLogout()"><span class="decor-color">Logout</span></ons-toolbar-button>
+                <ons-toolbar-button ng-click="onLogout()"><span class="icon-color">Logout</span></ons-toolbar-button>
             </div>
         </ons-toolbar>        
         <div class="profile-card">
@@ -85,7 +85,7 @@
 
 <ons-template id="my_profile.html">
     <ons-page id="my_profile-page" ng-controller="MyProfileController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">
                 Profile detail
@@ -171,7 +171,7 @@
 
 <ons-template id="my_profile_update.html">
     <ons-page id="my_profile_update-page" ng-controller="MyProfileController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">
                 Profile update
@@ -246,7 +246,7 @@
 
 <ons-template id="my_password.html">
     <ons-page id="my_password-page" ng-controller="MyPasswordController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">
                 {{ user.first_name }} {{ user.last_name }}
@@ -276,7 +276,7 @@
 
 <ons-template id="my_post.html">
     <ons-page id="my_post-page" ng-controller="MyPostController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">
                 <div ng-if="showMyPost">
@@ -316,11 +316,11 @@
 
 <ons-template id="my_post_new.html">
     <ons-page ng-controller="PostingController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">New post</div>
         <div class="right">
-            <ons-toolbar-button ng-click="onPostSubmit()"><span class="decor-color">Post</span></ons-toolbar-button>
+            <ons-toolbar-button ng-click="onPostSubmit()"><span class="icon-color">Post</span></ons-toolbar-button>
         </div>
         </ons-toolbar>
         <div style="text-align: center; padding: 10px">
@@ -420,11 +420,11 @@
 
 <ons-template id="my_post_detail.html">
     <ons-page id="my_post_detail-page" ng-controller="MyPostDetailController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">More information</div>
             <div class="right" ng-show="isUpdating">
-                <ons-toolbar-button ng-click="onUpdateDone()"><span class="decor-color">Save</span></ons-toolbar-button>
+                <ons-toolbar-button ng-click="onUpdateDone()"><span class="icon-color">Save</span></ons-toolbar-button>
             </div>
         </ons-toolbar>
         <div style="text-align: center; padding: 10px" ng-show="isUpdating">
@@ -585,7 +585,7 @@
 
 <ons-template id="my_post_photo.html">
     <ons-page id="my_post_photo-page" ng-controller="MyPostPhotoController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">More photos</div>
         </ons-toolbar>
@@ -651,7 +651,7 @@
 
 <ons-template id="my_post_photo_view.html">
     <ons-page id="my_post_photo_view-page" ng-controller="MyPostPhotoController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">More photos</div>
         </ons-toolbar>
@@ -695,7 +695,7 @@
 <!-- Admin page -->
 <ons-template id="admin.html">
     <ons-page id="admin-page" ng-controller="AdminController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">Administrator</div>
         </ons-toolbar>
@@ -715,11 +715,11 @@
 
 <ons-template id="user_admin.html">
     <ons-page id="user_admin-page" ng-controller="UserAdminController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">Users</div>
             <div class="right">
-                <ons-toolbar-button><span class="decor-color">{{n_users}}</span></ons-toolbar-button>
+                <ons-toolbar-button><span class="icon-color">{{n_users}}</span></ons-toolbar-button>
             </div>
         </ons-toolbar>
         <ons-list>
@@ -756,11 +756,11 @@
 
 <ons-template id="post_admin.html">
     <ons-page id="post_admin-page" ng-controller="PostAdminController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">Posts</div>
             <div class="right">
-                <ons-toolbar-button><span class="decor-color">{{n_posts}}</span></ons-toolbar-button>
+                <ons-toolbar-button><span class="icon-color">{{n_posts}}</span></ons-toolbar-button>
             </div>
         </ons-toolbar>
         <ons-list>
@@ -791,7 +791,7 @@
 
 <ons-template id="tag_admin.html">
     <ons-page id="tag_admin-page" ng-controller="TagAdminController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">Tags</div>
         </ons-toolbar>
@@ -843,7 +843,7 @@
 
 <ons-template id="support.html">
     <ons-page id="support-page">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="center">New Request</div>
         </ons-toolbar>
     

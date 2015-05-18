@@ -17,7 +17,7 @@ app.controller('MainController', ['$scope', 'service', '$http', '$q', '$timeout'
                 service.hideSpinner();
             }
         );
-        $scope.pageTitle = 'Online Market';
+        $scope.pageTitle = 'Dashboard';
     }
     else if (service.tag === 'favorite') {
         $scope.$on('refresh:favorite', function(){
@@ -40,7 +40,7 @@ app.controller('MainController', ['$scope', 'service', '$http', '$q', '$timeout'
                 }
             );
         }
-        $scope.pageTitle = 'My Favorites';
+        $scope.pageTitle = 'Favorites';
     }
     else if (service.tag === 'history') {
         $scope.pageTitle = 'View History';        

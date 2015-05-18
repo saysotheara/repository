@@ -1,5 +1,5 @@
 
-<ons-navigator title="OnlineMarket" var="app.navi" page="main.html"></ons-navigator>
+<ons-navigator title="Dashboard" var="app.navi" page="main.html"></ons-navigator>
     
 <ons-modal var="modal">
     <i class="fa fa-spinner fa-spin fa-pulse" style="font-size: 28px;"></i>
@@ -16,13 +16,13 @@
                 <span ng-switch-when="action"><i class="fa fa-spinner fa-spin fa-pulse" style="font-size: 20px;"></i> Loading data...</span>
             </span>
         </ons-pull-hook>
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left">
-                <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="decor-color"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="icon-color"></ons-icon></ons-toolbar-button>
             </div>
             <div class="center">{{pageTitle}}</div>
             <div class="right">
-                <ons-toolbar-button ng-click="app.navi.pushPage('search.html', { animation: 'lift' })"><ons-icon icon="search" class="decor-color"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button ng-click="app.navi.pushPage('search.html', { animation: 'lift' })"><ons-icon icon="search" class="icon-color"></ons-icon></ons-toolbar-button>
             </div>
         </ons-toolbar>
 <!--         <ons-list infinite-scroll="loadNext()">
@@ -59,15 +59,15 @@
 
 <ons-template id="detail.html">
     <ons-page id="detail-page" ng-controller="DetailController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">More information</div>
             <div class="right">
                 <div ng-if="isFavorited">
-                    <ons-toolbar-button ng-click="onFavoriteRemove();"><ons-icon icon="star" class="decor-color"></ons-icon></ons-toolbar-button>
+                    <ons-toolbar-button ng-click="onFavoriteRemove();"><ons-icon icon="star" class="icon-color"></ons-icon></ons-toolbar-button>
                 </div>
                 <div ng-if="isFavorited===false">
-                    <ons-toolbar-button ng-click="onFavoriteAdd();"><ons-icon icon="star-o" class="decor-color"></ons-icon></ons-toolbar-button>
+                    <ons-toolbar-button ng-click="onFavoriteAdd();"><ons-icon icon="star-o" class="icon-color"></ons-icon></ons-toolbar-button>
                 </div>
             </div>
         </ons-toolbar>
@@ -179,9 +179,9 @@
 
 <ons-template id="search.html">
     <ons-page id="search-page" ng-controller="SearchController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="right">
-                <ons-toolbar-button ng-click="app.navi.popPage();"><span class="decor-color">Cancel</span></ons-toolbar-button>
+                <ons-toolbar-button ng-click="app.navi.popPage();"><span class="icon-color">Cancel</span></ons-toolbar-button>
             </div>
             <div class="center">Looking for something?</div>
         </ons-toolbar>
@@ -223,34 +223,13 @@
     </ons-page>
 </ons-template>
 
-<ons-template id="product.html">
-<ons-page id="product-page" ng-controller="ProductController">
-    <ons-toolbar>
-        <div class="left">
-            <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="decor-color"></ons-icon></ons-toolbar-button>
-        </div>
-        <div class="center">Products</div>
-    </ons-toolbar>
-
-    <div class="wrapper">
-        <div class="container">
-            <ul class="grid-na rig columns-3">
-        		<li ng-repeat="tag in tags" ng-click="onTagClicked(tag.tag);">
-    				<img src="images/pri_{{tag.id}}.jpg" /><span class="classify-item">{{tag.tag}}</span>
-    			</li>
-    		</ul>
-        </div>
-    </div>
-</ons-page>    
-</ons-template>
-
 <ons-template id="photo.html">
     <ons-page id="photo-page" ng-controller="DetailPhotoController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">All photos</div>
             <div class="right">
-                <ons-toolbar-button class="decor-color">{{files.length}}</ons-toolbar-button>
+                <ons-toolbar-button class="icon-color">{{files.length}}</ons-toolbar-button>
             </div>
         </ons-toolbar>
         <ons-carousel swipeable overscrollable auto-scroll auto-refresh fullscreen var="carousel">
@@ -264,7 +243,7 @@
 
 <ons-template id="comments.html">
     <ons-page id="comments-page">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">All Comments</div>
         </ons-toolbar>            

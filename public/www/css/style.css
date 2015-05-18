@@ -1,9 +1,14 @@
 
-.pc {
-    margin: 0 auto 0 auto; 
-    width: 500px; 
-    border: 1px solid blue; 
-    box-shadow: 10px 10px 5px #888888;"    
+.toolbar {
+    background: #1b93e1;
+    height: 50px;
+}
+.center {
+    color: white;
+    font-weight: 600;
+}
+.icon-color {
+    color: white;
 }
 
 .list__item__line-height {

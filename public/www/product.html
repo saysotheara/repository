@@ -1,0 +1,20 @@
+
+<ons-page id="product-page" ng-controller="ProductController">
+    <ons-toolbar class="toolbar">
+        <div class="left">
+            <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="icon-color"></ons-icon></ons-toolbar-button>
+        </div>
+        <div class="center">Products</div>
+    </ons-toolbar>
+
+    <div class="wrapper">
+        <div class="container">
+            <ul class="grid-na rig columns-3">
+        		<li ng-repeat="tag in tags" ng-click="onTagClicked(tag.tag);">
+    				<img src="images/pri_{{tag.id}}.jpg" /><span class="classify-item">{{tag.tag}}</span>
+    			</li>
+    		</ul>
+        </div>
+    </div>
+</ons-page>
+

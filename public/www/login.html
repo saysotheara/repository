@@ -9,14 +9,14 @@
 
 <ons-template id="login_main.html">
     <ons-page id="login_main-page" ng-controller="LoginController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left">
-                <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="decor-color"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="icon-color"></ons-icon></ons-toolbar-button>
             </div>
             <div class="center">Login</div>
             <div class="right">
                 <ons-toolbar-button ng-click="onSignupClick()">
-                    <span class="decor-color">Sign Up</span>
+                    <span class="icon-color">Sign Up</span>
                 </ons-toolbar-button>
             </div>
         </ons-toolbar>
@@ -67,9 +67,9 @@
 
 <ons-template id="signup.html">
     <ons-page id="signup-page" ng-controller="SignupController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="right">
-                <ons-toolbar-button ng-click="nav.login.popPage()"><span class="decor-color">Cancel</span></ons-toolbar-button>
+                <ons-toolbar-button ng-click="nav.login.popPage()"><span class="icon-color">Cancel</span></ons-toolbar-button>
             </div>
             <div class="center">Sign Up</div>
         </ons-toolbar>

@@ -3,9 +3,9 @@
 
 <ons-template id="main.html">
 <ons-page ng-controller="HistoryController">
-    <ons-toolbar>
+    <ons-toolbar class="toolbar">
         <div class="left">
-            <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="decor-color"></ons-icon></ons-toolbar-button>
+            <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="icon-color"></ons-icon></ons-toolbar-button>
         </div>
         <div class="center">View History</div>
     </ons-toolbar>
@@ -39,11 +39,11 @@
 
 <ons-template id="detail.html">
     <ons-page id="detail-page" ng-controller="DetailController">
-        <ons-toolbar>
+        <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">More information</div>
             <div class="right">
-                <ons-toolbar-button ng-click="app.navi.pushPage('comment.html', { animation : 'lift' });"><ons-icon icon="comment-o" class="decor-color"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button ng-click="app.navi.pushPage('comment.html', { animation : 'lift' });"><ons-icon icon="comment-o" class="icon-color"></ons-icon></ons-toolbar-button>
             </div>
         </ons-toolbar>
 
