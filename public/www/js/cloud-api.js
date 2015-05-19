@@ -5,7 +5,7 @@
 function CloudAPI(httpProtocol) {
     
     this.http       = httpProtocol;
-    this.baseUrl    = (ons.platform.isIOS() || ons.platform.isAndroid()) ? 'http://92c8ed5d.ngrok.io/' : '/';
+    this.baseUrl    = (ons.platform.isIOS() || ons.platform.isAndroid()) ? 'http://6358a0d5.ngrok.io/' : '/';
 
     this.sendMailUrl        = 'api/user/send';
     this.sendResetUrl       = 'api/user/reset';
@@ -52,14 +52,37 @@ function CloudAPI(httpProtocol) {
     this.favrCheckUrl       = 'api/favorite/check';
     
     this.tagListUrl         = 'api/tag/list';
+    this.tagCountUrl        = 'api/tag/count';
+    this.tagAddUrl          = 'api/tag/add';
+    this.tagDeleteUrl       = 'api/tag/delete';
+    this.tagUpdateUrl       = 'api/tag/update';
+
     this.locListUrl         = 'api/location/list';
+    this.locCountUrl        = 'api/location/count';
+    this.locAddUrl          = 'api/location/add';
+    this.locDeleteUrl       = 'api/location/delete';
+    this.locUpdateUrl       = 'api/location/update';
 
     this.historyListUrl     = 'api/history/list';
     this.historyAddUrl      = 'api/history/add';
     this.historyDeleteUrl   = 'api/history/delete';
 
     this.aboutListUrl       = 'api/about/list';
+    this.aboutAddUrl        = 'api/about/add';
+    this.aboutDeleteUrl     = 'api/about/delete';
+    this.aboutUpdateUrl     = 'api/about/update';
+    
     this.helpListUrl        = 'api/help/list';
+    this.helpCountUrl       = 'api/help/count';
+    this.helpAddUrl         = 'api/help/add';
+    this.helpDeleteUrl      = 'api/help/delete';
+    this.helpUpdateUrl      = 'api/help/update';
+    
+    this.feedListUrl        = 'api/feed/list';
+    this.feedCountUrl       = 'api/feed/count';
+    this.feedAddUrl         = 'api/feed/add';
+    this.feedDeleteUrl      = 'api/feed/delete';
+    this.feedUpdateUrl      = 'api/feed/update';
 
 }
 
@@ -237,11 +260,43 @@ CloudAPI.prototype.tagList = function() {
     return this.http.get(this.baseUrl + this.tagListUrl);
 };
 
+CloudAPI.prototype.tagCount = function() {
+    return this.http.get(this.baseUrl + this.tagCountUrl);
+};
+
+CloudAPI.prototype.tagAdd = function(json) {
+    return this.http.post(this.baseUrl + this.tagAddUrl, json);
+};
+
+CloudAPI.prototype.tagDelete = function(json) {
+    return this.http.post(this.baseUrl + this.tagDeleteUrl, json);
+};
+
+CloudAPI.prototype.tagUpdate = function(json) {
+    return this.http.post(this.baseUrl + this.tagUpdateUrl, json);
+};
+
 /**
  * Location Management API
  */
 CloudAPI.prototype.locationList = function() {
     return this.http.get(this.baseUrl + this.locListUrl);
+};
+
+CloudAPI.prototype.locationCount = function() {
+    return this.http.get(this.baseUrl + this.locCountUrl);
+};
+
+CloudAPI.prototype.locationAdd = function(json) {
+    return this.http.post(this.baseUrl + this.locAddUrl, json);
+};
+
+CloudAPI.prototype.locationDelete = function(json) {
+    return this.http.post(this.baseUrl + this.locDeleteUrl, json);
+};
+
+CloudAPI.prototype.locationUpdate = function(json) {
+    return this.http.post(this.baseUrl + this.locUpdateUrl, json);
 };
 
 /**
@@ -266,8 +321,62 @@ CloudAPI.prototype.aboutList = function() {
     return this.http.get(this.baseUrl + this.aboutListUrl);
 };
 
+CloudAPI.prototype.aboutAdd = function(json) {
+    return this.http.post(this.baseUrl + this.aboutAddUrl, json);
+};
+
+CloudAPI.prototype.aboutDelete = function(json) {
+    return this.http.post(this.baseUrl + this.aboutDeleteUrl, json);
+};
+
+CloudAPI.prototype.abouUpdate = function(json) {
+    return this.http.post(this.baseUrl + this.aboutUpdateUrl, json);
+};
+
+/**
+ * Help Management API
+ */
 CloudAPI.prototype.helpList = function() {
     return this.http.get(this.baseUrl + this.helpListUrl);
+};
+
+CloudAPI.prototype.helpCount = function() {
+    return this.http.get(this.baseUrl + this.helpCountUrl);
+};
+
+CloudAPI.prototype.helpAdd = function(json) {
+    return this.http.post(this.baseUrl + this.helpAddUrl, json);
+};
+
+CloudAPI.prototype.helpDelete = function(json) {
+    return this.http.post(this.baseUrl + this.helpDeleteUrl, json);
+};
+
+CloudAPI.prototype.helpUpdate = function(json) {
+    return this.http.post(this.baseUrl + this.helpUpdateUrl, json);
+};
+
+/**
+ * Feed Management API
+ */
+CloudAPI.prototype.feedList = function() {
+    return this.http.get(this.baseUrl + this.feedListUrl);
+};
+
+CloudAPI.prototype.feedCount = function() {
+    return this.http.get(this.baseUrl + this.feedCountUrl);
+};
+
+CloudAPI.prototype.feedAdd = function(json) {
+    return this.http.post(this.baseUrl + this.feedAddUrl, json);
+};
+
+CloudAPI.prototype.feedDelete = function(json) {
+    return this.http.post(this.baseUrl + this.feedDeleteUrl, json);
+};
+
+CloudAPI.prototype.feedUpdate = function(json) {
+    return this.http.post(this.baseUrl + this.feedUpdateUrl, json);
 };
 
 

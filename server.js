@@ -21,6 +21,7 @@ var LocationAPI = require('./model/location.js');
 var TagAPI      = require('./model/tag.js');
 var HelpAPI     = require('./model/help.js');
 var AboutAPI    = require('./model/about.js');
+var FeedAPI     = require('./model/feed.js');
 
 var user  = new UserAPI( connection );
 var post  = new PostAPI( connection );
@@ -29,6 +30,7 @@ var loc   = new LocationAPI( connection );
 var tag   = new TagAPI( connection );
 var help  = new HelpAPI( connection );
 var about = new AboutAPI( connection );
+var feed  = new FeedAPI( connection );
 
 app.get( 
     "/api/user/list", 
@@ -251,11 +253,57 @@ app.get(
     loc.locationList()
 );
 
+app.get(
+    "/api/location/count", 
+    loc.locationCount()
+);
+
+app.post(
+    "/api/location/add", 
+    jsonParser, 
+    loc.locationAdd()
+);
+
+app.post(
+    "/api/location/delete", 
+    jsonParser, 
+    loc.locationDelete()
+);
+
+app.post(
+    "/api/location/update", 
+    jsonParser, 
+    loc.locationUpdate()
+);
+
 
 // TAG MGT
 app.get(
     "/api/tag/list", 
     tag.tagList()
+);
+
+app.get(
+    "/api/tag/count", 
+    tag.tagCount()
+);
+
+app.post(
+    "/api/tag/add", 
+    jsonParser, 
+    tag.tagAdd()
+);
+
+app.post(
+    "/api/tag/delete", 
+    jsonParser, 
+    tag.tagDelete()
+);
+
+app.post(
+    "/api/tag/update", 
+    jsonParser, 
+    tag.tagUpdate()
 );
 
 
@@ -265,11 +313,88 @@ app.get(
     about.aboutList()
 );
 
+app.post(
+    "/api/about/add", 
+    jsonParser, 
+    about.aboutAdd()
+);
+
+app.post(
+    "/api/about/delete", 
+    jsonParser, 
+    about.aboutDelete()
+);
+
+app.post(
+    "/api/about/update", 
+    jsonParser, 
+    about.aboutUpdate()
+);
+
 
 // Help MGT
 app.get(
     "/api/help/list", 
     help.helpList()
+);
+
+app.get(
+    "/api/help/count", 
+    help.helpCount()
+);
+
+// Help MGT
+app.post(
+    "/api/help/add", 
+    jsonParser, 
+    help.helpAdd()
+);
+
+// Help MGT
+app.post(
+    "/api/help/delete", 
+    jsonParser, 
+    help.helpDelete()
+);
+
+// Help MGT
+app.post(
+    "/api/help/update", 
+    jsonParser, 
+    help.helpUpdate()
+);
+
+
+// Feed MGT
+app.get(
+    "/api/feed/list", 
+    feed.feedList()
+);
+
+app.get(
+    "/api/feed/count", 
+    feed.feedCount()
+);
+
+// Feed MGT
+app.post(
+    "/api/feed/add", 
+    jsonParser, 
+    feed.feedAdd()
+);
+
+// Feed MGT
+app.post(
+    "/api/feed/delete", 
+    jsonParser, 
+    feed.feedDelete()
+);
+
+// Feed MGT
+app.post(
+    "/api/feed/update", 
+    jsonParser, 
+    feed.feedUpdate()
 );
 
 

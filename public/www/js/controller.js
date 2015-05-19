@@ -1112,8 +1112,11 @@ app.controller('SignupController', ['$rootScope', '$scope', 'service', '$http', 
 }]);
 
 // This is a MenuController
-app.controller('MenuController', ['$scope', 'service', '$http', '$q', '$controller', 'localStorageService', function($scope, service, $http, $q, $controller, localStorageService) {
+app.controller('MenuController', ['$rootScope', '$scope', 'service', '$http', '$q', '$controller', 'localStorageService', function($rootScope, $scope, service, $http, $q, $controller, localStorageService) {
 
+    $scope.thumbPath = service.thumbPath;
+    $scope.isLoggined = service.isLoggined();
+    
     $scope.$on('refresh:login_done', function(){
         $scope.isLoggined = true;
         $scope.user = service.getCurrentUser();
@@ -1181,17 +1184,52 @@ app.controller('MenuController', ['$scope', 'service', '$http', '$q', '$controll
         }
     }
 
+    $scope.onAccountClick = function() {
+            service.returnTo === 'profile';
+            ons.notification.confirm({
+                message: 'Are you sure you want to logout?',
+                callback: function(index) {
+                    if (index == 1) {
+                        $scope.app.slidingMenu.closeMenu();
+                        service.showSpinner();
+                        service.cloudAPI.userLogout( { user_id : $scope.user.user_id } )
+                            .success( function(result, status){
+                                service.setCurrentUser('');
+                                localStorageService.remove('currentUser');
+                                $rootScope.$broadcast('refresh:logout_done');
+                                $scope.app.slidingMenu.setMainPage('login.html', {  animation: "fade", closeMenu: true });
+                            })
+                            .error( function(data, status) {
+                                ons.notification.alert({ title: 'Logout failed', message: 'Network Error. Please check your connection and try again.' });                
+                            })
+                            .finally(function() {
+                                service.hideSpinner();
+                            }
+                        );
+                    }
+                }
+            });
+    }
+    
 }]);
 
 
 // This is a AdminController
 app.controller('AdminController', ['$scope', 'service', '$http', '$q', '$controller', function($scope, service, $http, $q, $controller) {
-    $scope.thumbPath = service.thumbPath;
-    $scope.n_users   = 0;
-    $scope.n_posts   = 0;
+    $scope.thumbPath  = service.thumbPath;
+    $scope.n_user     = 0;
+    $scope.n_post     = 0;
+    $scope.n_tag      = 0;
+    $scope.n_location = 0;
+    $scope.n_feed     = 0;
+    $scope.n_help     = 0;
 
-    service.cloudAPI.userCount().success( function(result, status){ $scope.n_users = result; });
-    service.cloudAPI.postCount().success( function(result, status){ $scope.n_posts = result; });
+    service.cloudAPI.userCount().success( function(result, status){ $scope.n_user = result; });
+    service.cloudAPI.postCount().success( function(result, status){ $scope.n_post = result; });
+    service.cloudAPI.tagCount().success( function(result, status){ $scope.n_tag = result; });
+    service.cloudAPI.locationCount().success( function(result, status){ $scope.n_location = result; });
+    service.cloudAPI.feedCount().success( function(result, status){ $scope.n_feed = result; });
+    service.cloudAPI.helpCount().success( function(result, status){ $scope.n_help = result; });
 
 }]);
 
@@ -1244,28 +1282,73 @@ app.controller('TagAdminController', ['$scope', 'service', '$http', '$q', '$cont
 
 
 app.controller('LocationAdminController', ['$scope', 'service', '$http', '$q', '$controller', function($scope, service, $http, $q, $controller) {
+    
+    angular.extend(this, $controller('AdminController', {$scope: $scope}));
+
+    service.showSpinner();
+    service.cloudAPI.locationList()
+        .success( function(result, status){
+            $scope.locations = result;
+        })
+        .finally(function() {
+            service.hideSpinner();
+        }
+    );
+}]);
+
+
+app.controller('FeedAdminController', ['$scope', 'service', '$http', '$q', '$controller', function($scope, service, $http, $q, $controller) {
+    
+    angular.extend(this, $controller('AdminController', {$scope: $scope}));
+
+    service.showSpinner();
+    service.cloudAPI.feedList()
+        .success( function(result, status){
+            $scope.feeds = result;
+        })
+        .finally(function() {
+            service.hideSpinner();
+        }
+    );
+}]);
+
+
+app.controller('HelpAdminController', ['$scope', 'service', '$http', '$q', '$controller', function($scope, service, $http, $q, $controller) {
+    
+    angular.extend(this, $controller('AdminController', {$scope: $scope}));
+
+    service.showSpinner();
+    service.cloudAPI.helpList()
+        .success( function(result, status){
+            $scope.help = result;
+        })
+        .finally(function() {
+            service.hideSpinner();
+        }
+    );
+}]);
+
+
+app.controller('AboutAdminController', ['$scope', 'service', '$http', '$q', '$controller', function($scope, service, $http, $q, $controller) {
 
     angular.extend(this, $controller('AdminController', {$scope: $scope}));
     
-    $scope.allLocations = {
-        configureItemScope : function(index, itemScope) {
-        },
-        calculateItemHeight : function(index) {
-            return 130;
-        },
-        countItems : function() {
-            return 10;
-        },
-        destroyItemScope: function(index, itemScope) {
-        }        
-    };
+    service.showSpinner();
+    service.cloudAPI.aboutList()
+        .success( function(result, status){
+            $scope.about = result[0];
+        })
+        .finally(function() {
+            service.hideSpinner();
+        }
+    );
 
 }]);
 
 
 app.controller('AboutController', ['$scope', 'service', '$http', '$q', '$controller', function($scope, service, $http, $q, $controller) {
 
-    $scope.appName      = "Online 9";
+    $scope.appName      = "Superean";
     $scope.version      = "1.0.0";
     $scope.builtDate    = new Date();
     

@@ -1,93 +1,86 @@
 
 <ons-page style="background-color: #1b93e1" ng-controller="MenuController">
 
-    <div style="text-align: center; color: #007AFF; margin: 30px 10px 20px 10px;">
+    <div style="text-align: center; color: #007AFF; margin: 30px 10px 15px 10px;" onclick="app.slidingMenu.closeMenu()">
         <img src="images/superean.png" alt="" style="width: 180px;" />
     </div>
     
-    <ons-list>
-
+    <ons-list class="toolbar-color">
+        <ons-list-item class="list__item__line-height">
+            <span class="menu_nav-section">Navigation</span>
+        </ons-list-item>
         <ons-list-item
             modifier="tappable" class="list__item__line-height"
             ng-click='onOnlineMarketClick()'>
-            <i class="fa fa-home fa-lg decor-color"></i>
-            &nbsp; Dashboard
+            <i class="fa fa-home fa-lg menu_icon-color"></i>
+            <span class="menu_nav-title">&nbsp; Dashboard</span>
         </ons-list-item>
-
         <ons-list-item
             modifier="tappable" class="list__item__line-height"
             onclick="app.slidingMenu.setMainPage('product.html', {closeMenu: true})">
-            <i class="fa fa-tags fa-sg decor-color"></i>
-            &nbsp; Categories
+            <i class="fa fa-tags fa-sg menu_icon-color"></i>
+            <span class="menu_nav-title">&nbsp; Categories</span>
         </ons-list-item>
-
         <ons-list-item
             modifier="tappable" class="list__item__line-height"
             ng-click='onFavoriteClick()'>
-            <i class="fa fa-star fa-sg decor-color"></i>
-            &nbsp; Favorites
+            <i class="fa fa-star fa-sg menu_icon-color"></i>
+            <span class="menu_nav-title">&nbsp; Favorites</span>
         </ons-list-item>
-<!--
-        <ons-list-item
-            modifier="tappable" class="list__item__line-height"
-            ng-click='onHistoryClick()'>
-            <i class="fa fa-history fa-sg decor-color"></i>
-            &nbsp; View History
-        </ons-list-item>
--->
         <ons-list-item
             modifier="tappable" class="list__item__line-height"
             ng-click='onPostingClick()'>
-            <i class="fa fa-edit fa-sg decor-color"></i>
-            &nbsp; New Posting
+            <i class="fa fa-edit fa-sg menu_icon-color"></i>
+            <span class="menu_nav-title">&nbsp; New Posting</span>
         </ons-list-item>
-<!--
-        <ons-list-item
-            modifier="tappable" class="list__item__line-height"
-            ng-click='onStoreClick()'>
-            <i class="fa fa-shopping-cart fa-sg decor-color"></i>
-            &nbsp; Stores
-        </ons-list-item>
--->
-        <ons-list-item
-            modifier="tappable" class="list__item__line-height"
-            ng-click='onProfileClick()'>
-            <i class="fa fa-user fa-sg decor-color"></i>
-            &nbsp; Profile
-        </ons-list-item>
-<!--
-        <ons-list-item
-            modifier="tappable" class="list__item__line-height"
-            onclick="app.slidingMenu.setMainPage('setting.html', {closeMenu: true})">
-            <i class="fa fa-gear fa-sg decor-color"></i>
-            &nbsp; Settings
-        </ons-list-item>
--->
         <ons-list-item
             modifier="tappable" class="list__item__line-height"
             onclick="app.slidingMenu.setMainPage('about.html', {closeMenu: true})">
-            <i class="fa fa-info-circle fa-sg decor-color"></i>
-            &nbsp; About Us
+            <i class="fa fa-info-circle fa-sg menu_icon-color"></i>
+            <span class="menu_nav-title">&nbsp; About Us</span>
         </ons-list-item>
-        
         <ons-list-item
             modifier="tappable" class="list__item__line-height"
             onclick="app.slidingMenu.setMainPage('classify.html', {closeMenu: true})">
-            <i class="fa fa-crosshairs fa-sg decor-color"></i>
-            &nbsp; More Classify
+            <i class="fa fa-crosshairs fa-sg menu_icon-color"></i>
+            <span class="menu_nav-title">&nbsp; More Classify</span>
         </ons-list-item>
-
     </ons-list>
 
-    <div ng-if="isLoggined">
-        <ons-list modifier="inset" style="margin-top:10px;">
-            <ons-list-item>
-                You are loggined as:
+    <ons-list class="toolbar-color">
+        <ons-list-item class="list__item__line-height">
+            <span class="menu_nav-section">User Account</span>
+        </ons-list-item>
+        <div ng-if="isLoggined">
+            <ons-list-item
+                modifier="tappable" class="list__item__line-height"
+                ng-click='onProfileClick()'>
+                <i class="fa fa-user fa-sg menu_icon-color"></i>
+                <span class="menu_nav-title">&nbsp; My Profile</span>
             </ons-list-item>
-            <ons-list-item>
-               {{ user.user_id }}
+            <div ng-if="user.role==='admin'">
+                <ons-list-item
+                    modifier="tappable" class="list__item__line-height"
+                    onclick="app.slidingMenu.setMainPage('admin.html', {closeMenu: true})">
+                    <i class="fa fa-bug fa-sg menu_icon-color"></i>
+                    <span class="menu_nav-title">&nbsp; Administrator</span>
+                </ons-list-item>
+            </div>
+            <ons-list-item class="list__item__line-height" ng-click="onAccountClick()">
+                <div style="margin-left: 23px;">
+                    <img src="{{thumbPath}}{{user.photo}}" class="menu_profile-image">
+                    <span class="menu_nav-title">&nbsp;{{ user.user_id }}</span>
+                </div>
             </ons-list-item>
-        </ons-list>
-    </div>
+        </div>
+        <div ng-if="isLoggined===false">
+            <ons-list-item 
+                modifier="tappable" class="list__item__line-height"
+                onclick="app.slidingMenu.setMainPage('login.html', {closeMenu: true})">
+                <i class="fa fa-sign-in fa-sg menu_icon-color"></i>
+                <span class="menu_nav-title">&nbsp; Log In</span>
+            </ons-list-item>
+        </div>
+    </ons-list>
 
 </ons-page>

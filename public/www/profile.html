@@ -71,15 +71,7 @@
                 Change password
             </ons-list-item>
         </ons-list>
-        <div ng-if="user.role==='admin'">
-        <ons-list modifier="inset" style="margin-top: 10px">
-            <ons-list-item modifier="chevron" 
-                onclick="nav.profile.pushPage('admin.html', { animation: 'slide' });">
-                <i class="fa fa-bug fa-sg decor-color"></i> Administrator
-            </ons-list-item>
-        </ons-list>
         <br>
-        </div>
     </ons-page>
 </ons-template>
 
@@ -88,7 +80,7 @@
         <ons-toolbar class="toolbar">
             <div class="left"><ons-back-button>Back</ons-back-button></div>
             <div class="center">
-                Profile detail
+                Profile information
             </div>
         </ons-toolbar>
         <ons-list modifier="inset" style="margin-top: 10px;">    
@@ -214,13 +206,12 @@
                 placeholder="Phone number">
             </div>
             <div class="form-row">
-                <select 
-                    class="posting-category {{required.location}}" 
-                    style="height: 45px;" 
-                    ng-model="user.location" 
-                    ng-focus="onFocus()" 
-                    ng-options="loc.location for loc in locations">
-                </select>
+              <input type="text" 
+                style="height: 50px;" 
+                ng-model="user.location" 
+                ng-focus="onFocus()" 
+                class="text-input--underbar width-full input-focus {{required.location}}" 
+                placeholder="Phone number">
             </div>
             <div class="form-row">
                 <textarea class="textarea input-focus"
@@ -692,190 +683,3 @@
 </ons-template>
 
 
-<!-- Admin page -->
-<ons-template id="admin.html">
-    <ons-page id="admin-page" ng-controller="AdminController">
-        <ons-toolbar class="toolbar">
-            <div class="left"><ons-back-button>Back</ons-back-button></div>
-            <div class="center">Administrator</div>
-        </ons-toolbar>
-        <ons-list modifier="inset" style="margin-top: 10px">
-            <ons-list-item modifier="chevron" onclick="nav.profile.pushPage('user_admin.html', { animation: 'slide' });">
-                View users { {{n_users}} }
-            </ons-list-item>
-            <ons-list-item modifier="chevron" onclick="nav.profile.pushPage('post_admin.html', { animation: 'slide' });">
-                View posts { {{n_posts}} }
-            </ons-list-item>
-            <ons-list-item modifier="chevron" onclick="nav.profile.pushPage('tag_admin.html', { animation: 'slide' });">
-                View tags
-            </ons-list-item>
-        </ons-list>
-    </ons-page>
-</ons-template>
-
-<ons-template id="user_admin.html">
-    <ons-page id="user_admin-page" ng-controller="UserAdminController">
-        <ons-toolbar class="toolbar">
-            <div class="left"><ons-back-button>Back</ons-back-button></div>
-            <div class="center">Users</div>
-            <div class="right">
-                <ons-toolbar-button><span class="icon-color">{{n_users}}</span></ons-toolbar-button>
-            </div>
-        </ons-toolbar>
-        <ons-list>
-            <ons-list-item modifier="chevron" class="admin_user-item" ng-repeat="user in users">
-                <ons-row>
-                    <ons-col width="100px">
-                        <img ng-src="{{thumbPath}}{{user.photo}}" class="admin_user-item-thum"></img>
-                    </ons-col>
-                    <ons-col>
-                        <div class="admin_user-item-name">
-                            {{ user.first_name }} {{ user.last_name }}
-                        </div>
-                        <div class="admin-user-item-element">
-                            <ons-icon icon="fa-user" class="decor-color"></ons-icon> {{ user.user_id }}
-                        </div>
-                        <div class="admin-user-item-element">
-                            <ons-icon icon="fa-envelope-square" class="decor-color"></ons-icon> {{ user.email }}
-                        </div>
-                        <div class="admin-user-item-element">
-                            <ons-icon icon="fa-map-marker" style="color: red;"></ons-icon> {{ user.location }}
-                        </div>
-                        <div class="admin-user-item-active" ng-if="user.active==='on'">
-                            <i class="fa fa-sun-o" style="color: green;"></i> {{ user.role }}
-                        </div>
-                        <div class="admin-user-item-active" ng-if="user.active!=='on'">
-                            <i class="fa fa-power-off" style="color: red;"></i> <span class="admin-user-item-role">{{ user.role }}</span>
-                        </div>
-                    </ons-col>
-                </ons-row>
-            </ons-list-item>
-        </ons-list>
-    </ons-page>
-</ons-template>
-
-<ons-template id="post_admin.html">
-    <ons-page id="post_admin-page" ng-controller="PostAdminController">
-        <ons-toolbar class="toolbar">
-            <div class="left"><ons-back-button>Back</ons-back-button></div>
-            <div class="center">Posts</div>
-            <div class="right">
-                <ons-toolbar-button><span class="icon-color">{{n_posts}}</span></ons-toolbar-button>
-            </div>
-        </ons-toolbar>
-        <ons-list>
-            <ons-list-item 
-                modifier="tappable" class="item" ng-repeat="item in posts">
-                <ons-row>
-                    <ons-col width="98px">
-                        <img ng-src="{{thumbPath}}{{item.photo}}" class="item-thum"></img>
-                    </ons-col>
-                    <ons-col>
-                        <div class="item-title">
-                            {{ item.post | cut : true : 200 : ' ...' }}
-                        </div>
-                        <div ng-show="item.desc==''"><p><span style='opacity: 0.7;'><i class="fa fa-spinner fa-spin fa-pulse"></i> Loading item...</p></span></div>
-                        <div class="item-desc">
-                            {{ item.description | cut : true : 200 : ' ...' }}
-                        </div>
-                        <div class="item-more">
-                            <ons-icon icon="fa-user" class="item-icon decor-color"></ons-icon> {{ item.user_id }} <span style="color: black;"> | </span> 
-                            <ons-icon icon="fa-money" class="item-icon alert-color"></ons-icon> <span class="alert-color">{{ item.price }} $</span>
-                        </div>
-                    </ons-col>
-                </ons-row>
-            </ons-list-item>
-        </ons-list>
-    </ons-page>
-</ons-template>
-
-<ons-template id="tag_admin.html">
-    <ons-page id="tag_admin-page" ng-controller="TagAdminController">
-        <ons-toolbar class="toolbar">
-            <div class="left"><ons-back-button>Back</ons-back-button></div>
-            <div class="center">Tags</div>
-        </ons-toolbar>
-        <ons-list>
-            <ons-list-item 
-                modifier="chevron" class="item" ng-repeat="item in tags">
-                <ons-row>
-                    <ons-col width="98px">
-                        <img ng-src="http://lorempixel.com/60/60/" class="item-thum"></img>
-                    </ons-col>
-                    <ons-col>
-                        <header>
-                            <span class="item-title">{{ item.tag }}</span>
-                        </header>
-                        <p class="item-desc">{{ item.description }}</p>
-                    </ons-col>
-                </ons-row>
-            </ons-list-item>
-        </ons-list>
-    </ons-page>
-</ons-template>
-
-<ons-template id="location_admin.html">
-    <ons-page id="location_admin-page" ng-controller="LocationAdminController">
-        <ons-list>
-            <ons-list-item 
-                modifier="chevron" class="item" ons-lazy-repeat="allLocations">
-                <ons-row>
-                    <ons-col width="90px">
-                        <img ng-src="http://lorempixel.com/60/60/" class="item-thum"></img>
-                    </ons-col>
-                    <ons-col>
-                        <header>
-                            <span class="item-title">{{ item.user_id }}</span>
-                        </header>
-                        <div ng-show="item.desc==''"><p><span style='opacity: 0.7;'><ons-icon icon='fa-spinner' spin='true'></ons-icon> Loading item...</p></span></div>
-                        <p class="item-desc">{{ item.first_name }}</p>
-                    </ons-col>
-                    <ons-col width="40px">
-                        <header>
-                            <span class="item-user">{{ item.location }}</span>
-                        </header>
-                    </ons-col>
-                </ons-row>
-            </ons-list-item>
-        </ons-list>
-    </ons-page>
-</ons-template>
-
-<ons-template id="support.html">
-    <ons-page id="support-page">
-        <ons-toolbar class="toolbar">
-            <div class="center">New Request</div>
-        </ons-toolbar>
-    
-        <ons-list modifier="inset" style="margin-top: 10px">
-            <ons-list-item class="to-wrapper">
-                <ons-row>
-                    <ons-col width="52px">
-                        <img src="images/profile-image-02.png" width="42" class="to-image">
-                    </ons-col>
-                    <ons-col>
-                        <div class="to-name">Graham</div>
-                        <div class="to-email">@graham</div>
-                    </ons-col>
-                </ons-row>
-            </ons-list-item>
-            <ons-list-item>
-                <input type="text" class="text-input text-input--transparent" placeholder="Name" style="width: 100%">
-            </ons-list-item>
-    
-            <ons-list-item>
-                <textarea class="textarea textarea--transparent" placeholder="Message" style="width: 100%; height: 100px;"></textarea>
-            </ons-list-item>
-    
-            <ons-list-item modifier="chevron">
-                <ons-icon icon="fa-tag" style="opacity:0.2"></ons-icon>
-            </ons-list-item>
-        </ons-list>
-    
-        <div style="padding: 10px 9px">
-            <ons-button modifier="large" style="margin: 0 auto;">
-                Send
-            </ons-button>
-        </div>            
-    </ons-page>
-</ons-template>

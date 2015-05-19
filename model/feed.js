@@ -1,13 +1,13 @@
 
 'user strict'
 
-var TagAPI = function( sqlConnection ) {
+var FeedAPI = function( sqlConnection ) {
     connection = sqlConnection;
 }
 
-TagAPI.prototype.tagList = function() {
+FeedAPI.prototype.feedList = function() {
 	return function(req, res) {
-		connection.query('SELECT * from online9_tb_tag', function(err, rows, fields) {
+		connection.query('SELECT * from online9_tb_feed', function(err, rows, fields) {
 	  		if (!err) {
 	    		res.status(200).json(rows);
 	  		}
@@ -19,11 +19,11 @@ TagAPI.prototype.tagList = function() {
 	};
 }
 
-TagAPI.prototype.tagCount = function() {
+FeedAPI.prototype.feedCount = function() {
     return function(req, res) {
-        connection.query('SELECT COUNT(id) AS n_tags from online9_tb_tag', function(err, rows, fields) {
+        connection.query('SELECT COUNT(id) AS n_feeds from online9_tb_feed', function(err, rows, fields) {
             if (!err) {
-                res.status(200).json(rows[0].n_tags);
+                res.status(200).json(rows[0].n_feeds);
             }
             else {
                 res.status(500).json(rows);
@@ -33,17 +33,15 @@ TagAPI.prototype.tagCount = function() {
     };
 }
 
-
-TagAPI.prototype.tagAdd = function() {
+FeedAPI.prototype.feedAdd = function() {
     return function(req, res) {
         var data = req.body;
-        var tag = {
-            tag   		: data.tag, 
+        var feed = {
+            feed   		: data.feed, 
             description : data.description,
-            photo 		: data.photo,
-            other		: data.other
+            date 		: new Date()
         };
-        connection.query('INSERT INTO online9_tb_tag SET ?', tag, function(err, result) {
+        connection.query('INSERT INTO online9_tb_feed SET ?', feed, function(err, result) {
             if (!err) {
                 res.status(200).json(result);
             }
@@ -55,9 +53,9 @@ TagAPI.prototype.tagAdd = function() {
     };
 };
 
-TagAPI.prototype.tagDelete = function() {
+FeedAPI.prototype.feedDelete = function() {
     return function(req, res) {
-        connection.query('DELETE FROME online9_tb_tag WHERE id = ', req.body.id, function(err, result) {
+        connection.query('DELETE FROME online9_tb_feed WHERE id = ', req.body.id, function(err, result) {
             if (!err) {
                 res.status(200).json(result);
             }
@@ -69,16 +67,15 @@ TagAPI.prototype.tagDelete = function() {
     };
 };
 
-TagAPI.prototype.tagUpdate = function() {
+FeedAPI.prototype.feedUpdate = function() {
     return function(req, res) {
         var data = req.body;
-        var tag = {
-            tag   		: data.tag, 
+        var feed = {
+            feed        : data.feed, 
             description : data.description,
-            photo 		: data.photo,
-            other		: data.other
+            date        : new Date()
         };
-        connection.query('UPDATE online9_tb_tag SET ? WHERE id = ?', [tag, data.id], function(err, result) {
+        connection.query('UPDATE online9_tb_feed SET ? WHERE id = ?', [feed, data.id], function(err, result) {
             if (!err) {
                 res.status(200).json(result);
             }
@@ -90,5 +87,5 @@ TagAPI.prototype.tagUpdate = function() {
     };
 };
 
-module.exports = TagAPI;
+module.exports = FeedAPI;
 

@@ -13,7 +13,7 @@
             <div class="left">
                 <ons-toolbar-button ng-click="app.slidingMenu.toggleMenu()"><ons-icon icon="bars" class="icon-color"></ons-icon></ons-toolbar-button>
             </div>
-            <div class="center">Login</div>
+            <div class="center">Authentication</div>
             <div class="right">
                 <ons-toolbar-button ng-click="onSignupClick()">
                     <span class="icon-color">Sign Up</span>
@@ -25,7 +25,7 @@
                 class="text-input--underbar {{required.user_id}} input-focus" 
                 placeholder="Username" style="width: 100%;">
             <input type="password" ng-model="password" 
-                ng-focus="onFocus()" 
+                ng-focus="onFocus()" onfocus="this.value=''"
                 class="text-input--underbar {{required.password}} input-focus" 
                 placeholder="Password">
             <br><br>
@@ -49,7 +49,7 @@
 
 <ons-template id="password.html">
     <ons-dialog var="dialog" cancelable ng-controller="DialogController">
-        <ons-toolbar inline>
+        <ons-toolbar inline class="toolbar-color">
             <div class="center">
                 Forgot password?
             </div>
