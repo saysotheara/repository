@@ -208,10 +208,10 @@
             <div class="form-row">
               <input type="text" 
                 style="height: 50px;" 
-                ng-model="user.location" 
+                ng-model="user.address" 
                 ng-focus="onFocus()" 
-                class="text-input--underbar width-full input-focus {{required.location}}" 
-                placeholder="Phone number">
+                class="text-input--underbar width-full input-focus {{required.address}}" 
+                placeholder="Address">
             </div>
             <div class="form-row">
                 <textarea class="textarea input-focus"
@@ -222,11 +222,11 @@
                 </textarea>
             </div>
             <div class="form-row">
-                <ons-button modifier="normal" style="float: left; width: 48.5%; text-align: center;" 
+                <ons-button modifier="large" style="float: left; width: 48.5%; text-align: center;" 
                     ng-click="nav.profile.popPage()">
                     Cancel
                 </ons-button>
-                <ons-button modifier="normal" style="float: right; width: 48.5%; text-align: center;" 
+                <ons-button modifier="large" style="float: right; width: 48.5%; text-align: center;" 
                     ng-click="onUpdateProfile()">
                     Update
                 </ons-button>

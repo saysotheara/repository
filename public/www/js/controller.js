@@ -473,14 +473,18 @@ app.controller('ProfileController', ['$rootScope', '$scope', 'service', '$http',
         $scope.n_following = 0;
         $scope.n_followers = 0;
         $scope.user = service.getCurrentUser();
-        service.cloudAPI.postUserCount( { user_id : $scope.user.user_id } )
-            .success( function(result, status){
-                $scope.n_posts = result;
-            }
-        );
+        service.showSpinner();
         service.cloudAPI.favoriteCount( { user_id : $scope.user.user_id } )
             .success( function(result, status){
                 $scope.n_favorites = result;
+            }
+        );
+        service.cloudAPI.postUserCount( { user_id : $scope.user.user_id } )
+            .success( function(result, status){
+                $scope.n_posts = result;
+            })
+            .finally( function() {
+                service.hideSpinner();
             }
         );
 
@@ -561,6 +565,8 @@ app.controller('ProfileController', ['$rootScope', '$scope', 'service', '$http',
 }]);
 
 app.controller('MyProfileController', ['$scope', 'service', '$http', '$q', '$controller', function($scope, service, $http, $q, $controller) {
+    
+    
     service.showSpinner();
     service.cloudAPI.userById( { user_id : service.getCurrentUser().user_id } )
         .success( function(result, status){
@@ -570,14 +576,87 @@ app.controller('MyProfileController', ['$scope', 'service', '$http', '$q', '$con
             service.hideSpinner();
         }
     );
-    service.cloudAPI.locationList()
-        .success( function(result, status){
-            $scope.locations = result;
-        }
-    );
-
+    
+    $scope.onFocus = function() {
+        $scope.required = {
+            user_id             : '',
+            email               : '',
+            phone               : '',
+            address             : ''
+        };
+    }
+    var isUserExisted, isEmailExisted;
+    $scope.onUserIDBlur = function() {
+        service.cloudAPI.userCheck( {user_id: $scope.user.user_id} )
+            .success( function(result, status){
+                if (result === 'exist') {
+                    isUserExisted = true;
+                    $scope.required.user_id = 'true';
+                }
+                else {
+                    isUserExisted = false;
+                }
+            }
+        );
+    };
+    $scope.onEmailBlur = function() {
+        service.cloudAPI.userByEmail( {email: $scope.user.email} )
+            .success( function(result, status){
+                if (result === 'exist') {
+                    isEmailExisted = true;
+                    $scope.required.email = 'true';
+                }
+                else {
+                    isEmailExisted = false;
+                }
+            }
+        );
+    };
+        
     $scope.onUpdateProfile  = function() {
-        alert('update');
+        if ($scope.user.user_id === '' || isUserExisted) {
+            $scope.required.user_id = 'true';
+            return 0;
+        }
+        if ($scope.user.email === '' || isEmailExisted) {
+            $scope.required.email = 'true';
+            return 0;
+        }
+        if ($scope.user.phone === '' || $scope.user.phone.length < 8) {
+            $scope.required.phone = 'true';
+            return 0;
+        }
+        if ($scope.user.address === '') {
+            $scope.required.address = 'true';
+            return 0;
+        }
+        var data  = {
+        	    user_id     : $scope.user.user_id.trim(), 
+			    first_name  : $scope.user.first_name.trim(), 
+			    last_name   : $scope.user.last_name.trim(), 
+			    email       : $scope.user.email.trim(), 
+			    address     : $scope.user.address, 
+			    phone       : $scope.user.phone.trim(), 
+                info        : $scope.user.info
+        };
+        service.showSpinner();
+        service.cloudAPI.userUpdate( data )
+            .success( function(result, status){
+                $scope.nav.login.popPage();
+                ons.notification.alert({ message: 'Account has been updated successfully.' });
+            })
+            .error( function(data, status) {
+                if (status == 500) {
+                    ons.notification.alert({ message: 'Cannot update, please try again.' });
+                }
+                else {
+                    ons.notification.alert({ message: 'Network Error. Please check your connection and try again.' });                
+                }
+            })
+            .finally(function() {
+                service.hideSpinner();
+            }
+        );
     };
 
     $scope.updateProfile  = function() {
@@ -1017,7 +1096,7 @@ app.controller('SignupController', ['$rootScope', '$scope', 'service', '$http', 
         );
     };
         
-    $scope.onClearClick();    
+    $scope.onClearClick();
     $scope.onSignupSubmit = function() {
 
         if ($scope.user.user_id === '' || isUserExisted) {

@@ -5,7 +5,7 @@
 function CloudAPI(httpProtocol) {
     
     this.http       = httpProtocol;
-    this.baseUrl    = (ons.platform.isIOS() || ons.platform.isAndroid()) ? 'http://6358a0d5.ngrok.io/' : '/';
+    this.baseUrl    = (ons.platform.isIOS() || ons.platform.isAndroid()) ? 'http://8060129e.ngrok.io/' : '/';
 
     this.sendMailUrl        = 'api/user/send';
     this.sendResetUrl       = 'api/user/reset';
